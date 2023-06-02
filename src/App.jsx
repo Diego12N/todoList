@@ -17,7 +17,7 @@ function App() {
 				<Form updateList={handleTaskItem} />
 			</header>
 			<main>
-				<TaskList list={taskAdded} />
+				<TaskList list={taskAdded} setter={setTaskAdded} />
 			</main>
 		</>
 	);
