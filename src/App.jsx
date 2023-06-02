@@ -1,23 +1,19 @@
-import {useState} from "react";
 import "./App.css";
-import {TaskList} from "./components/TaskList";
+import {TaskContainer} from "./components/TaskContainer";
 import {Form} from "./components/Form";
+import {useTask} from "./hooks/useTask";
 
 function App() {
-	const [taskAdded, setTaskAdded] = useState([]);
-
-	const handleTaskItem = (item) => {
-		setTaskAdded([...taskAdded, item]);
-	};
-
+	const {ts} = useTask();
+	console.log(ts);
 	return (
 		<>
 			<header>
 				<h1>Lista de Tareas</h1>
-				<Form updateList={handleTaskItem} />
+				<Form />
 			</header>
 			<main>
-				<TaskList list={taskAdded} setter={setTaskAdded} />
+				<TaskContainer />
 			</main>
 		</>
 	);
