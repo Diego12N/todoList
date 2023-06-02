@@ -3,11 +3,16 @@ import {useEffect, useState} from "react";
 export const useTask = () => {
 	const [task, setTask] = useState("");
 	const [taskList, setTaskList] = useState([]);
-	const [ts, setTs] = useState([]);
 
 	// const handleTaskList = (item) => {
 	// 	setTaskList([...taskList, item]);
 	// };
+
+	useEffect(() => {}, [taskList]);
+
+	const getTasks = () => {
+		return [...taskList];
+	};
 
 	const handleTask = (e) => {
 		setTask(e.target.value);
@@ -31,13 +36,13 @@ export const useTask = () => {
 		setTask("");
 	};
 
-	const hanbleDeleteItem = () => {
+	const hanbleDeleteItem = (itemID) => {
 		const newList = taskList.filter((task) => {
-			if (task.id != itemId) return task;
+			if (task.id != itemID) return task;
 		});
 
 		setTaskList(newList);
 	};
 
-	return {ts, task, handleTask, handleSubmit, hanbleDeleteItem};
+	return {tasks: getTasks(), task, handleTask, handleSubmit, hanbleDeleteItem};
 };

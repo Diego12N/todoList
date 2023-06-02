@@ -1,7 +1,6 @@
-import {useState} from "react";
 import {useTask} from "../hooks/useTask";
 
-export function Form() {
+export function Form({task, handleTask, handleSubmit}) {
 	// const [task, setTask] = useState("");
 
 	// const handleTask = (e) => {
@@ -33,8 +32,6 @@ export function Form() {
 	// 		</button>
 	// 	</form>
 	// );
-
-	const {task, handleTask, handleSubmit} = useTask();
 
 	return (
 		<form onSubmit={handleSubmit}>
