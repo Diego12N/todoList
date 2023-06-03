@@ -1,11 +1,11 @@
-import {useTask} from "../hooks/useTask";
+import {useState} from "react";
 
-export function Form({task, handleTask, handleSubmit}) {
-	// const [task, setTask] = useState("");
+export function Form({handleSubmit}) {
+	const [task, setTask] = useState("");
 
-	// const handleTask = (e) => {
-	// 	setTask(e.target.value);
-	// };
+	const handleTask = (e) => {
+		setTask(e.target.value);
+	};
 
 	// const handleSubmit = (e) => {
 	// 	e.preventDefault();
@@ -34,7 +34,7 @@ export function Form({task, handleTask, handleSubmit}) {
 	// );
 
 	return (
-		<form onSubmit={handleSubmit}>
+		<form onSubmit={(e) => handleSubmit(e, task, setTask)}>
 			<input type="text" placeholder="Ingresar tarea" value={task} onInput={handleTask} />
 			<button type="submit" className="addTask">
 				Añadir

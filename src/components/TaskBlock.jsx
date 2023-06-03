@@ -1,6 +1,4 @@
-import {useEffect, useState} from "react";
 import "../App.css";
-import {useTask} from "../hooks/useTask";
 import {CheckButton, DeleteButton} from "./TaskButtons";
 
 export function TaskBlock({list, deleteFn}) {

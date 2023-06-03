@@ -1,24 +1,21 @@
 import {useEffect, useState} from "react";
 
 export const useTask = () => {
-	const [task, setTask] = useState("");
 	const [taskList, setTaskList] = useState([]);
 
 	// const handleTaskList = (item) => {
 	// 	setTaskList([...taskList, item]);
 	// };
 
-	useEffect(() => {}, [taskList]);
+	//const getStorage = window.localStorage.getItem()
+
+	//	useEffect(() => {}, [taskList]);
 
 	const getTasks = () => {
 		return [...taskList];
 	};
 
-	const handleTask = (e) => {
-		setTask(e.target.value);
-	};
-
-	const handleSubmit = (e) => {
+	const handleSubmit = (e, task, setTask) => {
 		e.preventDefault();
 		const taskTrimed = task.trim();
 		if (!taskTrimed) {
@@ -36,7 +33,7 @@ export const useTask = () => {
 		setTask("");
 	};
 
-	const hanbleDeleteItem = (itemID) => {
+	const handleDeleteItem = (itemID) => {
 		const newList = taskList.filter((task) => {
 			if (task.id != itemID) return task;
 		});
@@ -44,5 +41,5 @@ export const useTask = () => {
 		setTaskList(newList);
 	};
 
-	return {tasks: getTasks(), task, handleTask, handleSubmit, hanbleDeleteItem};
+	return {tasks: getTasks(), handleSubmit, handleDeleteItem};
 };

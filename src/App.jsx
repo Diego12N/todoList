@@ -4,16 +4,17 @@ import {Form} from "./components/Form";
 import {useTask} from "./hooks/useTask";
 
 function App() {
-	const {tasks, task, handleTask, handleSubmit, hanbleDeleteItem} = useTask();
+	const {tasks, handleTask, handleSubmit, handleDeleteItem} = useTask();
+	console.log("task");
 
 	return (
 		<>
 			<header>
 				<h1>Lista de Tareas</h1>
-				<Form task={task} handleTask={handleTask} handleSubmit={handleSubmit} />
+				<Form handleTask={handleTask} handleSubmit={handleSubmit} />
 			</header>
 			<main>
-				<TaskBlock list={tasks} deleteFn={hanbleDeleteItem} />
+				<TaskBlock list={tasks} deleteFn={handleDeleteItem} />
 			</main>
 		</>
 	);
