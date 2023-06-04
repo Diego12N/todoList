@@ -33,6 +33,18 @@ export const useTask = () => {
 		setTask("");
 	};
 
+	const updateTask = (id) => {
+		const newList = [...taskList];
+
+		newList.forEach((task, index, list) => {
+			if (task.id === id) {
+				list[index].isChecked = !task.isChecked;
+			}
+		});
+
+		setTaskList(newList);
+	};
+
 	const handleDeleteItem = (itemID) => {
 		const newList = taskList.filter((task) => {
 			if (task.id != itemID) return task;
@@ -41,5 +53,5 @@ export const useTask = () => {
 		setTaskList(newList);
 	};
 
-	return {tasks: getTasks(), handleSubmit, handleDeleteItem};
+	return {tasks: getTasks(), handleSubmit, handleDeleteItem, updateTask};
 };

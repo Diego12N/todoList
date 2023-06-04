@@ -1,7 +1,7 @@
 import "../App.css";
 import {CheckButton, DeleteButton} from "./TaskButtons";
 
-export function TaskBlock({list, deleteFn}) {
+export function TaskBlock({list, deleteFn, updater}) {
 	console.log(list);
 	return (
 		<section className="taks-container">
@@ -11,12 +11,12 @@ export function TaskBlock({list, deleteFn}) {
 				<ul className="task-list">
 					{list.map((task) => {
 						return (
-							<li key={task.id}>
-								<p>{task.description}</p>
+							<li key={task.id} className={task.isChecked ? "task-cheked" : "taks-pending"}>
 								<div>
-									<CheckButton />
-									<DeleteButton itemId={task.id} removeAction={deleteFn} />
+									<CheckButton taskId={task.id} updateTask={updater} />
+									<p>{task.description}</p>
 								</div>
+								<DeleteButton itemId={task.id} removeAction={deleteFn} />
 							</li>
 						);
 					})}
