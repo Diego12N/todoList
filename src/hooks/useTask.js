@@ -11,6 +11,14 @@ export const useTask = () => {
 
 	//	useEffect(() => {}, [taskList]);
 
+	useEffect(() => {
+		if (localStorage.getItem("list")) {
+			//localStorage.getItem retorna null si dicha key(list) no existe. Es decir seria igual a false
+			// Para verificar si un array esta vacio lo correcto es comprobar si su longitud es mayor a 0
+			setTaskList(JSON.parse(localStorage.getItem("list")));
+		}
+	}, []);
+
 	const getTasks = () => {
 		return [...taskList];
 	};
@@ -25,10 +33,14 @@ export const useTask = () => {
 		const taskItem = {
 			id: self.crypto.randomUUID(),
 			description: task,
-			isChecked: false,
+			isCompleted: false,
 		};
 
-		setTaskList([...taskList, taskItem]);
+		// Debido a que el set de un estado es asincronico, primero guardo la nueva lista en una variable la cual puedo utilizar para acualizar el estado y a su vez guardar el cambio dentro del storage
+		const newList = [...taskList, taskItem];
+		setTaskList(newList);
+
+		localStorage.setItem("list", JSON.stringify([...newList]));
 
 		setTask("");
 	};
@@ -36,13 +48,17 @@ export const useTask = () => {
 	const updateTask = (id) => {
 		const newList = [...taskList];
 
-		newList.forEach((task, index, list) => {
+		const listUpdated = newList.map((task) => {
 			if (task.id === id) {
-				list[index].isChecked = !task.isChecked;
+				return {...task, isCompleted: !task.isCompleted}; // retorno el objeto, para ello mantengo los valores que no quiero modificar mediante el spread (...task), y como ya me encuentro dentro del objeto solo necesito llamar al valor a modificar (isComplpeted)
 			}
+
+			return task;
 		});
 
-		setTaskList(newList);
+		// Importante: forEach, solo actualiza nuestro array, no retorna un valor. Por ello debo utilizar .map que si retorna un valor.
+		setTaskList(listUpdated);
+		localStorage.setItem("list", JSON.stringify(listUpdated));
 	};
 
 	const handleDeleteItem = (itemID) => {
@@ -51,6 +67,7 @@ export const useTask = () => {
 		});
 
 		setTaskList(newList);
+		localStorage.setItem("list", JSON.stringify(newList));
 	};
 
 	return {tasks: getTasks(), handleSubmit, handleDeleteItem, updateTask};

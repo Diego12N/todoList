@@ -48,6 +48,10 @@
 	width: 100%;
 }
 
+.task-btn {
+	cursor: pointer;
+}
+
 li.task-cheked {
 	color: #48d548;
 	border: 1px solid #48d548;
